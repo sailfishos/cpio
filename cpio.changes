@@ -1,0 +1,26 @@
+* Sun Jun 26 2011 Anas Nashif <anas.nashif@intel.com> - 2.11
+- Do not require install-info
+
+* Sun Jun 05 2011 Anas Nashif <anas.nashif@intel.com> - 2.11
+- Do not exclude files, just delete them
+- Split docs/locale files
+
+* Thu Mar 18 2010 Austin Zhang <austin.zhang@intel.com> - 2.11
+- Updated for CVE-2010-0624 fixing [M#10239]
+
+* Sat Feb 27 2010 Anas Nashif <anas.nashif@intel.com> - 2.10
+- Updated with latest spectacle
+- Include YAML file in source rpm
+
+* Mon Feb 01 2010 Yi Yang <yi.y.yang@intel.com> - 2.10
+- Update to 2.10
+
+* Thu Nov 05 2009 Peter Zhu <peter.j.zhu@intel.com> - 2.9
+- Remove /usr/share/info/dir in %install
+
+* Thu Feb 19 2009 Anas Nashif <anas.nashif@intel.com> - 2.9
+- Link binary in /bin
+
+* Wed Dec 17 2008 Arjan van de Ven <arjan@linux.intel.com> - 2.9
+- Create standardized spec file
+
