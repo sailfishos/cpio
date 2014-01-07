@@ -15,6 +15,8 @@ Patches:
     - cpio-2.9-exitCode.patch
     - cpio-2.9-dev_number.patch
     - cpio-2.9.90-defaultremoteshell.patch
+    - cpio-aarch64.patch
+    - cpio-gets-aarch64.patch
 Description: |
     GNU cpio copies files into or out of a cpio or tar archive.  Archives
     are files which contain a collection of other files plus information
@@ -32,6 +34,6 @@ Description: |
 PkgBR:
     - texinfo
     - autoconf
-Configure: configure
+Configure: reconfigure
 ConfigOptions: 
     - --disable-nls

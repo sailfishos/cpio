@@ -20,6 +20,8 @@ Patch1:     cpio-2.9-rh.patch
 Patch2:     cpio-2.9-exitCode.patch
 Patch3:     cpio-2.9-dev_number.patch
 Patch4:     cpio-2.9.90-defaultremoteshell.patch
+Patch5:     cpio-aarch64.patch
+Patch6:     cpio-gets-aarch64.patch
 BuildRequires:  texinfo
 BuildRequires:  autoconf
 
@@ -54,6 +56,8 @@ Install cpio if you need a program to manage file archives.
 %patch3 -p1
 # cpio-2.9.90-defaultremoteshell.patch
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
 # >> setup
 
 %docs_package
@@ -64,7 +68,7 @@ Install cpio if you need a program to manage file archives.
 # >> build pre
 # << build pre
 
-%configure --disable-static \
+%reconfigure --disable-static \
     --disable-nls
 
 make %{?jobs:-j%jobs}

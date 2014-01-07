@@ -1,0 +1,14 @@
+diff -urN cpio-2.11/gnu/stdio.in.h cpio-2.11-aarch64/gnu/stdio.in.h
+--- cpio-2.11/gnu/stdio.in.h	2010-03-10 10:27:03.000000000 +0100
++++ cpio-2.11-aarch64/gnu/stdio.in.h	2012-10-30 05:16:33.146492634 +0100
+@@ -138,8 +138,9 @@
+ /* It is very rare that the developer ever has full control of stdin,
+    so any use of gets warrants an unconditional warning.  Assume it is
+    always declared, since it is required by C89.  */
+-#undef gets
++#ifdef HAVE_RAW_DECL_GETS
+ _GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
++#endif
+ 
+ #if @GNULIB_FOPEN@
+ # if @REPLACE_FOPEN@
