@@ -17,6 +17,8 @@ Patches:
     - cpio-2.9.90-defaultremoteshell.patch
     - cpio-aarch64.patch
     - cpio-gets-aarch64.patch
+    - cpio-2.11-CVE-2014-9112.patch
+    - cpio-2.11-testsuite-CVE-2014-9112.patch
 Description: |
     GNU cpio copies files into or out of a cpio or tar archive.  Archives
     are files which contain a collection of other files plus information
