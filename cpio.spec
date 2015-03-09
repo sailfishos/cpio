@@ -26,6 +26,7 @@ Patch5:     cpio-aarch64.patch
 Patch6:     cpio-gets-aarch64.patch
 Patch7:     cpio-2.11-CVE-2014-9112.patch
 Patch8:     cpio-2.11-testsuite-CVE-2014-9112.patch
+Patch9:     cpio-2.11-CVE-2015-1197.patch
 BuildRequires:  texinfo
 BuildRequires:  autoconf
 BuildRequires:  gettext
@@ -66,6 +67,8 @@ Install cpio if you need a program to manage file archives.
 %patch7 -p1
 # cpio-2.11-testsuite-CVE-2014-9112.patch
 %patch8 -p1
+# cpio-2.11-CVE-2015-1197.patch
+%patch9 -p1
 
 # >> setup
 
