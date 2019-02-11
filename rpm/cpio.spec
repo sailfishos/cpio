@@ -1,25 +1,30 @@
 Name:       cpio
 Summary:    A GNU archiving program
-Version:    2.11
-Release:    2
+Version:    2.12
+Release:    1
 Group:      Applications/Archiving
 License:    GPLv3+
 URL:        http://www.gnu.org/software/cpio/
-Source0:    ftp://ftp.gnu.org/gnu/cpio/cpio-%{version}.tar.gz
-Source1:    cpio.1
+Source0:    ftp://ftp.gnu.org/gnu/cpio/%{name}-%{version}.tar.gz
 Patch0:     cpio-2.6-setLocale.patch
 Patch1:     cpio-2.9-rh.patch
 Patch2:     cpio-2.9-exitCode.patch
 Patch3:     cpio-2.9-dev_number.patch
 Patch4:     cpio-2.9.90-defaultremoteshell.patch
-Patch5:     cpio-aarch64.patch
-Patch6:     cpio-gets-aarch64.patch
-Patch7:     cpio-2.11-CVE-2014-9112.patch
-Patch8:     cpio-2.11-testsuite-CVE-2014-9112.patch
-Patch9:     cpio-2.11-CVE-2015-1197.patch
+Patch5:     cpio-2.12-CVE-2015-1197.patch
+# Upstream patches from master since release_2_12 that fix building
+Patch6:     0001-bootstrap-fix-bootstrap-after-clean-clone.patch
+Patch7:     0002-Minor-fix-in-the-testsuite.patch
+# Other upstream fixes for issues in 2.12
+Patch8:     0004-CVE-2016-2037-1-byte-out-of-bounds-write.patch
+Patch9:     0005-Fix-out-of-bounds-read.patch
+Patch10:    0006-Fix-signed-integer-overflow-big-block-sizes.patch
+Patch11:    0007-Add-test-for-signed-integer-overflow.patch
+Provides:   bundled(gnulib)
 BuildRequires:  texinfo
 BuildRequires:  autoconf
 BuildRequires:  gettext
+BuildRequires:  bison
 
 %description
 GNU cpio copies files into or out of a cpio or tar archive.  Archives
@@ -45,7 +50,7 @@ Obsoletes: %{name}-docs
 Man and info pages for %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version}/upstream
 
 # cpio-2.6-setLocale.patch
 %patch0 -p1
@@ -57,35 +62,44 @@ Man and info pages for %{name}.
 %patch3 -p1
 # cpio-2.9.90-defaultremoteshell.patch
 %patch4 -p1
-# cpio-aarch64.patch
+# cpio-2.12-CVE-2015-1197.patch
 %patch5 -p1
-# cpio-gets-aarch64.patch
+# 0002-Minor-fix-in-the-testsuite.patch
 %patch6 -p1
-# cpio-2.11-CVE-2014-9112.patch
+# 0003-fix-enable_mt-configure-logic.patch
 %patch7 -p1
-# cpio-2.11-testsuite-CVE-2014-9112.patch
+# 0004-CVE-2016-2037-1-byte-out-of-bounds-write.patch
 %patch8 -p1
-# cpio-2.11-CVE-2015-1197.patch
+# 0005-Fix-out-of-bounds-read.patch
 %patch9 -p1
+# 0006-Fix-signed-integer-overflow-big-block-sizes.patch
+%patch10 -p1
+# 0007-Add-test-for-signed-integer-overflow.patch
+%patch11 -p1
+
+./bootstrap \
+    --no-git \
+    --gnulib-srcdir=gnulib \
+    --skip-po
 
 %build
-%reconfigure --disable-static \
+%configure \
     --disable-nls
 
 make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
+
 %make_install
-mkdir -p %{buildroot}%{_mandir}/man1
-cp -a %{SOURCE1} %{buildroot}%{_mandir}/man1
 
-mkdir -p $RPM_BUILD_ROOT/bin
-ln -sf ../usr/bin/cpio $RPM_BUILD_ROOT/bin/
-rm -rf %{buildroot}%{_prefix}/libexec/rmt
+mkdir -p %{buildroot}/bin
+ln -sf ..%{_bindir}/cpio %{buildroot}/bin/
+rm -f %{buildroot}%{_prefix}/libexec/rmt
+rm -f %{buildroot}%{_mandir}/man8/rmt.*
 
-mkdir -p $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-install -m0644 -t $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} \
+mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
+install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
         AUTHORS ChangeLog NEWS README THANKS
 
 %files
@@ -98,5 +112,4 @@ install -m0644 -t $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} \
 %defattr(-,root,root,-)
 %{_infodir}/%{name}.*
 %{_mandir}/man1/%{name}.*
-%{_mandir}/man1/mt.*
 %{_docdir}/%{name}-%{version}
