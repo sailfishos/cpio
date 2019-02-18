@@ -64,9 +64,9 @@ Man and info pages for %{name}.
 %patch4 -p1
 # cpio-2.12-CVE-2015-1197.patch
 %patch5 -p1
-# 0002-Minor-fix-in-the-testsuite.patch
+# 0001-bootstrap-fix-bootstrap-after-clean-clone.patch
 %patch6 -p1
-# 0003-fix-enable_mt-configure-logic.patch
+# 0002-Minor-fix-in-the-testsuite.patch
 %patch7 -p1
 # 0004-CVE-2016-2037-1-byte-out-of-bounds-write.patch
 %patch8 -p1
