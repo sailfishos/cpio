@@ -21,6 +21,7 @@ Patch9:     0005-Fix-out-of-bounds-read.patch
 Patch10:    0006-Fix-signed-integer-overflow-big-block-sizes.patch
 Patch11:    0007-Add-test-for-signed-integer-overflow.patch
 Provides:   bundled(gnulib)
+Provides:   gnu-cpio
 BuildRequires:  texinfo
 BuildRequires:  autoconf
 BuildRequires:  gettext
