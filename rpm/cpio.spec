@@ -71,8 +71,6 @@ rm -rf %{buildroot}
 
 %make_install
 
-mkdir -p %{buildroot}/bin
-ln -sf ..%{_bindir}/cpio %{buildroot}/bin/
 rm -f %{buildroot}%{_prefix}/libexec/rmt
 rm -f %{buildroot}%{_mandir}/man8/rmt.*
 
@@ -84,7 +82,6 @@ install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
 %defattr(-,root,root,-)
 %license COPYING
 %{_bindir}/*
-/bin/cpio
 
 %files doc
 %defattr(-,root,root,-)
