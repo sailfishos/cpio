@@ -1,6 +1,6 @@
 Name:       cpio
 Summary:    A GNU archiving program
-Version:    2.12
+Version:    2.13
 Release:    1
 Group:      Applications/Archiving
 License:    GPLv3+
@@ -8,18 +8,9 @@ URL:        http://www.gnu.org/software/cpio/
 Source0:    ftp://ftp.gnu.org/gnu/cpio/%{name}-%{version}.tar.gz
 Patch0:     cpio-2.6-setLocale.patch
 Patch1:     cpio-2.9-rh.patch
-Patch2:     cpio-2.9-exitCode.patch
+Patch2:     cpio-2.13-exitCode.patch
 Patch3:     cpio-2.9-dev_number.patch
 Patch4:     cpio-2.9.90-defaultremoteshell.patch
-Patch5:     cpio-2.12-CVE-2015-1197.patch
-# Upstream patches from master since release_2_12 that fix building
-Patch6:     0001-bootstrap-fix-bootstrap-after-clean-clone.patch
-Patch7:     0002-Minor-fix-in-the-testsuite.patch
-# Other upstream fixes for issues in 2.12
-Patch8:     0004-CVE-2016-2037-1-byte-out-of-bounds-write.patch
-Patch9:     0005-Fix-out-of-bounds-read.patch
-Patch10:    0006-Fix-signed-integer-overflow-big-block-sizes.patch
-Patch11:    0007-Add-test-for-signed-integer-overflow.patch
 Provides:   bundled(gnulib)
 Provides:   gnu-cpio
 BuildRequires:  texinfo
@@ -57,33 +48,19 @@ Man and info pages for %{name}.
 %patch0 -p1
 # cpio-2.9-rh.patch
 %patch1 -p1
-# cpio-2.9-exitCode.patch
+# cpio-2.13-exitCode.patch
 %patch2 -p1
 # cpio-2.9-dev_number.patch
 %patch3 -p1
 # cpio-2.9.90-defaultremoteshell.patch
 %patch4 -p1
-# cpio-2.12-CVE-2015-1197.patch
-%patch5 -p1
-# 0001-bootstrap-fix-bootstrap-after-clean-clone.patch
-%patch6 -p1
-# 0002-Minor-fix-in-the-testsuite.patch
-%patch7 -p1
-# 0004-CVE-2016-2037-1-byte-out-of-bounds-write.patch
-%patch8 -p1
-# 0005-Fix-out-of-bounds-read.patch
-%patch9 -p1
-# 0006-Fix-signed-integer-overflow-big-block-sizes.patch
-%patch10 -p1
-# 0007-Add-test-for-signed-integer-overflow.patch
-%patch11 -p1
 
+%build
 ./bootstrap \
     --no-git \
     --gnulib-srcdir=gnulib \
     --skip-po
 
-%build
 %configure \
     --disable-nls
 

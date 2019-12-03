@@ -1,0 +1,13 @@
+diff --git a/src/copyout.c b/src/copyout.c
+index 8b0beb6..4b7336b 100644
+--- a/src/copyout.c
++++ b/src/copyout.c
+@@ -290,7 +290,7 @@ field_width_error (const char *filename, const char *fieldname,
+ {
+   char valbuf[UINTMAX_STRSIZE_BOUND + 1];
+   char maxbuf[UINTMAX_STRSIZE_BOUND + 1];
+-  error (0, 0, _("%s: value %s %s out of allowed range 0..%s"),
++  error (1, 0, _("%s: value %s %s out of allowed range 0..%s"),
+ 	 filename, fieldname,
+ 	 STRINGIFY_BIGINT (value, valbuf),
+ 	 STRINGIFY_BIGINT (MAX_VAL_WITH_DIGITS (width - nul, LG_8),
