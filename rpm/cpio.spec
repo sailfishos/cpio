@@ -1,16 +1,40 @@
 Name:       cpio
 Summary:    A GNU archiving program
-Version:    2.13
+Version:    2.14
 Release:    1
-Group:      Applications/Archiving
 License:    GPLv3+
 URL:        http://www.gnu.org/software/cpio/
-Source0:    ftp://ftp.gnu.org/gnu/cpio/%{name}-%{version}.tar.gz
-Patch0:     cpio-2.6-setLocale.patch
-Patch1:     cpio-2.9-rh.patch
-Patch2:     cpio-2.13-exitCode.patch
-Patch3:     cpio-2.9-dev_number.patch
-Patch4:     cpio-2.9.90-defaultremoteshell.patch
+Source0:    %{name}-%{version}.tar.gz
+
+# Patches from Fedora
+
+# We use SVR4 portable format as default.
+Patch1: cpio-2.14-rh.patch
+
+# fix warn_if_file_changed() and set exit code to 1 when cpio fails to store
+# file > 4GB (#183224)
+# http://lists.gnu.org/archive/html/bug-cpio/2006-11/msg00000.html
+Patch2: cpio-2.14-exitCode.patch
+
+# Support major/minor device numbers over 127 (bz#450109)
+# http://lists.gnu.org/archive/html/bug-cpio/2008-07/msg00000.html
+Patch3: cpio-2.14-dev_number.patch
+
+# Define default remote shell as /usr/bin/ssh (#452904)
+Patch4: cpio-2.9.90-defaultremoteshell.patch
+
+# Fix segfault with nonexisting file with patternnames (#567022)
+# http://savannah.gnu.org/bugs/index.php?28954
+# We have slightly different solution than upstream.
+Patch5: cpio-2.14-patternnamesigsegv.patch
+
+# Fix bad file name splitting while creating ustar archive (#866467)
+# (fix backported from tar's source)
+Patch7: cpio-2.10-longnames-split.patch
+
+# Cpio does Sum32 checksum, not CRC (downstream)
+Patch8: cpio-2.11-crc-fips-nit.patch
+
 Provides:   bundled(gnulib)
 Provides:   gnu-cpio
 BuildRequires:  texinfo
@@ -34,7 +58,6 @@ Install cpio if you need a program to manage file archives.
 
 %package doc
 Summary:   Documentation for %{name}
-Group:     Documentation
 Requires:  %{name} = %{version}-%{release}
 Obsoletes: %{name}-docs
 
@@ -42,18 +65,7 @@ Obsoletes: %{name}-docs
 Man and info pages for %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}/upstream
-
-# cpio-2.6-setLocale.patch
-%patch0 -p1
-# cpio-2.9-rh.patch
-%patch1 -p1
-# cpio-2.13-exitCode.patch
-%patch2 -p1
-# cpio-2.9-dev_number.patch
-%patch3 -p1
-# cpio-2.9.90-defaultremoteshell.patch
-%patch4 -p1
+%autosetup -p1 -n %{name}-%{version}/upstream
 
 %build
 ./bootstrap \
@@ -64,11 +76,9 @@ Man and info pages for %{name}.
 %configure \
     --disable-nls
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf %{buildroot}
-
 %make_install
 
 mkdir -p %{buildroot}/bin
