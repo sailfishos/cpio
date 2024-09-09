@@ -1,6 +1,6 @@
 Name:       cpio
 Summary:    A GNU archiving program
-Version:    2.14
+Version:    2.15
 Release:    1
 License:    GPLv3+
 URL:        http://www.gnu.org/software/cpio/
@@ -91,13 +91,11 @@ install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
         AUTHORS ChangeLog NEWS README THANKS
 
 %files
-%defattr(-,root,root,-)
 %license COPYING
 %{_bindir}/*
 /bin/cpio
 
 %files doc
-%defattr(-,root,root,-)
 %{_infodir}/%{name}.*
 %{_mandir}/man1/%{name}.*
 %{_docdir}/%{name}-%{version}

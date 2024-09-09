@@ -6,10 +6,10 @@ Subject: [PATCH 6/7] Fix for splitting long file names while creating ustar
 Resolves: #866467
 
 diff --git a/src/tar.c b/src/tar.c
-index a2ce171..e2b5f45 100644
+index 318cbbe..c93d573 100644
 --- a/src/tar.c
 +++ b/src/tar.c
-@@ -49,10 +49,12 @@ split_long_name (const char *name, size_t length)
+@@ -48,10 +48,12 @@ split_long_name (const char *name, size_t length)
  {
    size_t i;
  

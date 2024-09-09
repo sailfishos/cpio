@@ -4,10 +4,10 @@ Subject: [PATCH 5/7] fix segfault with nonexisting file with patternnames
  (#567022)
 
 diff --git a/src/copyin.c b/src/copyin.c
-index 5d88a23..f2babb7 100644
+index 1ac843f..ea89e30 100644
 --- a/src/copyin.c
 +++ b/src/copyin.c
-@@ -948,21 +948,24 @@ read_pattern_file (void)
+@@ -964,21 +964,24 @@ read_pattern_file (void)
  
    pattern_fp = fopen (pattern_file_name, "r");
    if (pattern_fp == NULL)

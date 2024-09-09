@@ -4,7 +4,7 @@ Subject: [PATCH 4/7] define default remote shell as /usr/bin/ssh(#452904), use
  /etc/rmt as default rmt command
 
 diff --git a/paxutils/lib/rtapelib.c b/paxutils/lib/rtapelib.c
-index 7213031..7d0bd52 100644
+index 82522b9..af8e794 100644
 --- a/paxutils/lib/rtapelib.c
 +++ b/paxutils/lib/rtapelib.c
 @@ -59,6 +59,10 @@
@@ -17,4 +17,3 @@ index 7213031..7d0bd52 100644
 +
  #include <rmt.h>
  #include <rmt-command.h>
- 
