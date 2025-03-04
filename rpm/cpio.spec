@@ -62,7 +62,7 @@ Requires:  %{name} = %{version}-%{release}
 Obsoletes: %{name}-docs
 
 %description doc
-Man and info pages for %{name}.
+Man pages for %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}/upstream
@@ -85,6 +85,7 @@ mkdir -p %{buildroot}/bin
 ln -sf ..%{_bindir}/cpio %{buildroot}/bin/
 rm -f %{buildroot}%{_prefix}/libexec/rmt
 rm -f %{buildroot}%{_mandir}/man8/rmt.*
+rm -rf %{buildroot}%{_infodir}
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
@@ -96,6 +97,5 @@ install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
 /bin/cpio
 
 %files doc
-%{_infodir}/%{name}.*
 %{_mandir}/man1/%{name}.*
 %{_docdir}/%{name}-%{version}
