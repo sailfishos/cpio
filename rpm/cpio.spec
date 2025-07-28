@@ -73,6 +73,7 @@ Man pages for %{name}.
     --gnulib-srcdir=gnulib \
     --skip-po
 
+export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"
 %configure \
     --disable-nls
 
